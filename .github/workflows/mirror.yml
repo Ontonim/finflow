@@ -3,20 +3,39 @@ name: Mirror to Personal Repo
 on:
   push:
     branches:
-      - main
+      - main 
+
+permissions:
+  contents: read
 
 jobs:
   mirror:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout org repo
+      - name: Checkout org repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
-      - name: Push to personal repo
+      - name: Configure Git user
         run: |
-          git remote add personal https://x-access-token:${{ secrets.PERSONAL_REPO_TOKEN }}@github.com/arifadnan05/Ontonim/finflow.git
-          git push personal --all
-          git push personal --tags
+          git config user.name "Arif Adnan"
+          git config user.email "arifahamedadnan@gmail.com"
+
+      - name: Push mirror to personal repo
+        env:
+          PAT: ${{ secrets.PERSONAL_REPO_TOKEN }}
+        run: |
+          # Remove remote if already exists (safe)
+          git remote remove mirror || true
+
+          # Add personal repo as mirror remote
+          git remote add mirror https://x-access-token:${PAT}@github.com/labidrahat/frontend-v1.git
+
+          # Mirror push (branches + tags + deletes)
+          git push --mirror mirror
+
+
+          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
