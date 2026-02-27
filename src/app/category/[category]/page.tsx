@@ -59,28 +59,28 @@ export default async function CategoryPage({ params }: PageProps) {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3 ${categoryColor}`}>
             {display}
           </span>
           <h1
             style={{ fontFamily: "'Playfair Display', serif" }}
-            className="text-4xl md:text-5xl font-bold text-slate-900 mb-2"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-2"
           >
             {display} News
           </h1>
-          <p className="text-slate-500 text-lg">
+          <p className="text-slate-500 text-base sm:text-lg">
             Latest AI-curated {display.toLowerCase()} analysis and articles.
           </p>
         </div>
 
         {/* Category Nav */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-6 sm:mb-8">
           <Link
             href="/"
-            className="px-4 py-1.5 rounded-full text-sm font-medium border bg-white text-slate-600 border-slate-200 hover:border-emerald-400 hover:text-emerald-700 transition-all"
+            className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium border bg-white text-slate-600 border-slate-200 hover:border-emerald-400 hover:text-emerald-700 transition-all"
           >
             All
           </Link>
@@ -88,7 +88,7 @@ export default async function CategoryPage({ params }: PageProps) {
             <Link
               key={cat}
               href={`/category/${cat.toLowerCase().replace(/\s+/g, "-")}`}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all ${
+              className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium border transition-all ${
                 cat === display
                   ? "bg-slate-900 text-white border-slate-900"
                   : "bg-white text-slate-600 border-slate-200 hover:border-emerald-400 hover:text-emerald-700"
@@ -108,7 +108,7 @@ export default async function CategoryPage({ params }: PageProps) {
 
         {/* Grid */}
         {rest.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {rest.map((blog) => (
               <BlogCard key={String(blog._id)} blog={blog} />
             ))}

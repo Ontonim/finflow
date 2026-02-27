@@ -8,6 +8,8 @@ import { TrendingUp, FileText, MessageSquare, CheckCircle, XCircle, RefreshCw, E
 import type { Metadata } from "next";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Admin Dashboard — FinFlow AI",
   robots: { index: false, follow: false },
@@ -50,29 +52,30 @@ export default async function AdminPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="bg-white border-b border-slate-200 px-4 sm:px-6 py-4">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center flex-shrink-0">
               <TrendingUp className="w-4 h-4 text-emerald-400" />
             </div>
             <div>
-              <h1 className="font-bold text-slate-900 text-lg" style={{ fontFamily: "'Playfair Display', serif" }}>
+              <h1 className="font-bold text-slate-900 text-base sm:text-lg" style={{ fontFamily: "'Playfair Display', serif" }}>
                 FinFlow AI — Admin
               </h1>
-              <p className="text-xs text-slate-500">Content Management Dashboard</p>
+              <p className="text-xs text-slate-500 hidden sm:block">Content Management Dashboard</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/admin/posts/new"
-              className="flex items-center gap-1.5 px-4 py-2 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-emerald-600 transition-colors shadow-sm"
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-slate-900 text-white text-xs sm:text-sm font-semibold rounded-lg hover:bg-emerald-600 transition-colors shadow-sm"
             >
               <Plus className="w-4 h-4" />
-              New Article
+              <span className="hidden xs:inline">New Article</span>
+              <span className="xs:hidden">New</span>
             </Link>
-            <Link href="/" className="text-sm text-slate-500 hover:text-emerald-600 transition-colors">
-              ← Back to site
+            <Link href="/" className="text-xs sm:text-sm text-slate-500 hover:text-emerald-600 transition-colors whitespace-nowrap">
+              ← Site
             </Link>
           </div>
         </div>
@@ -80,7 +83,7 @@ export default async function AdminPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4">
           {[
             { label: "Total Articles", value: stats.totalBlogs, icon: FileText, color: "text-slate-700" },
             { label: "Published", value: stats.publishedBlogs, icon: CheckCircle, color: "text-emerald-600" },
@@ -136,9 +139,9 @@ export default async function AdminPage() {
                 createdAt: string;
                 sourcePublisher: string;
               }) => (
-                <div key={blog._id} className="px-6 py-4 flex items-center gap-4 hover:bg-slate-50 transition-colors">
+                <div key={blog._id} className="px-4 sm:px-6 py-3 sm:py-4 flex items-start sm:items-center gap-3 hover:bg-slate-50 transition-colors">
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex flex-wrap items-center gap-1.5 mb-1">
                       <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold ${CATEGORY_COLORS[blog.category] || "bg-slate-100 text-slate-600"}`}>
                         {blog.category}
                       </span>
@@ -146,7 +149,7 @@ export default async function AdminPage() {
                         {blog.status}
                       </span>
                     </div>
-                    <h3 className="text-sm font-semibold text-slate-800 line-clamp-1">
+                    <h3 className="text-sm font-semibold text-slate-800 line-clamp-2 sm:line-clamp-1">
                       <Link href={`/blog/${blog.slug}`} className="hover:text-emerald-600 transition-colors" target="_blank">
                         {blog.title}
                       </Link>
@@ -158,18 +161,18 @@ export default async function AdminPage() {
                   <div className="flex items-center gap-1 flex-shrink-0">
                     {/* View */}
                     <Link href={`/blog/${blog.slug}`} target="_blank"
-                      className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors" title="View">
+                      className="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors" title="View">
                       <Eye className="w-4 h-4" />
                     </Link>
                     {/* Edit */}
                     <Link href={`/admin/posts/${blog._id}/edit`}
-                      className="p-1.5 text-slate-400 hover:text-blue-600 rounded-lg hover:bg-blue-50 transition-colors" title="Edit">
+                      className="p-2 text-slate-400 hover:text-blue-600 rounded-lg hover:bg-blue-50 transition-colors" title="Edit">
                       <Pencil className="w-4 h-4" />
                     </Link>
                     {/* Toggle status */}
                     <form action={async () => { "use server"; await toggleBlogStatus(blog._id); }}>
                       <button type="submit"
-                        className="p-1.5 text-slate-400 hover:text-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors"
+                        className="p-2 text-slate-400 hover:text-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors"
                         title={blog.status === "published" ? "Set to draft" : "Publish"}>
                         {blog.status === "published" ? (
                           <ToggleRight className="w-4 h-4 text-emerald-600" />
@@ -181,7 +184,7 @@ export default async function AdminPage() {
                     {/* Delete */}
                     <form action={async () => { "use server"; await deleteBlog(blog._id); }}>
                       <button type="submit"
-                        className="p-1.5 text-slate-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors" title="Delete">
+                        className="p-2 text-slate-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors" title="Delete">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </form>
@@ -211,8 +214,8 @@ export default async function AdminPage() {
                 createdAt: string;
                 blogId: { title: string; slug: string } | null;
               }) => (
-                <div key={comment._id} className="px-6 py-4">
-                  <div className="flex items-start justify-between gap-4">
+                <div key={comment._id} className="px-4 sm:px-6 py-4">
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-3">
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-semibold text-slate-800 mb-0.5">
                         {comment.name}
@@ -220,7 +223,7 @@ export default async function AdminPage() {
                           <span className="font-normal text-slate-400">
                             {" "}on{" "}
                             <Link href={`/blog/${comment.blogId.slug}`} target="_blank" className="text-emerald-600 hover:underline">
-                              {comment.blogId.title.slice(0, 50)}…
+                              {comment.blogId.title.slice(0, 40)}…
                             </Link>
                           </span>
                         )}
@@ -231,14 +234,12 @@ export default async function AdminPage() {
                     <div className="flex gap-2 flex-shrink-0">
                       <form action={async () => { "use server"; await toggleCommentApproval(comment._id); }}>
                         <button type="submit"
-                          className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-colors">
-                          <CheckCircle className="w-3.5 h-3.5" /> Approve
+                          className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-colors"><CheckCircle className="w-3.5 h-3.5" /> Approve
                         </button>
                       </form>
                       <form action={async () => { "use server"; await deleteComment(comment._id); }}>
                         <button type="submit"
-                          className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors">
-                          <Trash2 className="w-3.5 h-3.5" /> Delete
+                          className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"><Trash2 className="w-3.5 h-3.5" /> Delete
                         </button>
                       </form>
                     </div>

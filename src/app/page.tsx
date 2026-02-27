@@ -33,27 +33,27 @@ export default async function HomePage() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
         {/* Page Header */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <h1
             style={{ fontFamily: "'Playfair Display', serif" }}
-            className="text-4xl md:text-5xl font-bold text-slate-900 mb-2"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-2"
           >
-            Finance News & Insights
+            Finance News &amp; Insights
           </h1>
-          <p className="text-slate-500 text-lg">
+          <p className="text-slate-500 text-base sm:text-lg">
             AI-curated market analysis, investing guides, and financial news for Tier-1 investors.
           </p>
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-6 sm:mb-8">
           {CATEGORIES.map((cat) => (
             <Link
               key={cat}
               href={cat === "All" ? "/" : `/category/${cat.toLowerCase().replace(/\s+/g, "-")}`}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all duration-150 ${
+              className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium border transition-all duration-150 ${
                 cat === "All"
                   ? "bg-slate-900 text-white border-slate-900"
                   : "bg-white text-slate-600 border-slate-200 hover:border-emerald-400 hover:text-emerald-700"

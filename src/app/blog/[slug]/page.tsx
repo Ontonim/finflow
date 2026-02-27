@@ -121,11 +121,11 @@ export default async function BlogDetailPage({ params }: PageProps) {
           </div>
           <h1
             style={{ fontFamily: "'Playfair Display', serif" }}
-            className="text-3xl md:text-5xl font-bold text-slate-900 leading-tight mb-4"
+            className="text-2xl sm:text-3xl md:text-5xl font-bold text-slate-900 leading-tight mb-4"
           >
             {blog.title}
           </h1>
-          <p className="text-slate-500 text-lg md:text-xl leading-relaxed mb-6">
+          <p className="text-slate-500 text-base sm:text-lg md:text-xl leading-relaxed mb-6">
             {blog.excerpt}
           </p>
           {/* Meta */}
@@ -168,8 +168,8 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
         {/* Featured Image */}
         {blog.featuredImage && (
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 mb-8 mt-4">
-            <div className="relative h-64 md:h-96 rounded-2xl overflow-hidden">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 mb-6 sm:mb-8 mt-4">
+            <div className="relative h-48 sm:h-64 md:h-96 rounded-xl sm:rounded-2xl overflow-hidden">
               <Image
                 src={blog.featuredImage}
                 alt={blog.title}
@@ -183,8 +183,8 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
         {/* 3-Column Layout */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-          <div className="flex gap-10">
-            {/* Left: Social Share (hidden on mobile) */}
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
+            {/* Left: Social Share (desktop only) */}
             <div className="hidden lg:flex flex-col items-center pt-4 w-12 flex-shrink-0">
               <div className="sticky top-24">
                 <SocialShare title={blog.title} slug={blog.slug} />
@@ -192,11 +192,11 @@ export default async function BlogDetailPage({ params }: PageProps) {
             </div>
 
             {/* Center: Article */}
-            <div className="flex-1 min-w-0 max-w-[680px]">
+            <div className="flex-1 min-w-0">
               <ContentRenderer content={blog.content} />
 
               {/* Source attribution */}
-              <div className="mt-8 p-4 rounded-lg bg-slate-50 border border-slate-100 text-sm text-slate-500">
+              <div className="mt-6 sm:mt-8 p-3 sm:p-4 rounded-lg bg-slate-50 border border-slate-100 text-sm text-slate-500">
                 <strong>Source: </strong>
                 <a
                   href={blog.sourceUrl}
@@ -212,39 +212,39 @@ export default async function BlogDetailPage({ params }: PageProps) {
               </div>
 
               {/* Mobile Social Share */}
-              <div className="flex lg:hidden items-center justify-center gap-3 mt-8">
+              <div className="flex lg:hidden items-center justify-center gap-3 mt-6 sm:mt-8">
                 <SocialShare title={blog.title} slug={blog.slug} />
               </div>
 
               {/* Comments */}
-              <div className="mt-12">
+              <div className="mt-8 sm:mt-12">
                 <h2
                   style={{ fontFamily: "'Playfair Display', serif" }}
-                  className="text-2xl font-bold text-slate-900 mb-6"
+                  className="text-xl sm:text-2xl font-bold text-slate-900 mb-4 sm:mb-6"
                 >
                   Comments ({comments.length})
                 </h2>
                 <CommentList comments={comments} />
-                <div className="mt-8">
+                <div className="mt-6 sm:mt-8">
                   <CommentForm blogId={String(blog._id)} />
                 </div>
               </div>
 
               {/* Related posts on mobile */}
               {relatedPosts.length > 0 && (
-                <div className="lg:hidden mt-12">
+                <div className="lg:hidden mt-8 sm:mt-12">
                   <h2
                     style={{ fontFamily: "'Playfair Display', serif" }}
-                    className="text-xl font-bold text-slate-900 mb-4"
+                    className="text-lg sm:text-xl font-bold text-slate-900 mb-4"
                   >
                     Related Articles
                   </h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {relatedPosts.slice(0, 2).map((post) => (
                       <Link
                         key={String(post._id)}
                         href={`/blog/${post.slug}`}
-                        className="block p-4 bg-white rounded-xl border border-slate-100 hover:border-emerald-200 transition-colors"
+                        className="block p-3 sm:p-4 bg-white rounded-xl border border-slate-100 hover:border-emerald-200 transition-colors"
                       >
                         <p className="text-sm font-semibold text-slate-800 line-clamp-2 hover:text-emerald-700">
                           {post.title}
@@ -256,7 +256,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
               )}
             </div>
 
-            {/* Right: Sidebar (hidden on mobile/tablet) */}
+            {/* Right: Sidebar (desktop only) */}
             <div className="hidden lg:block w-72 xl:w-80 flex-shrink-0">
               <Sidebar relatedPosts={relatedPosts} />
             </div>
