@@ -32,10 +32,7 @@ jobs:
           git remote remove mirror || true
 
           # Add personal repo as mirror remote
-          git remote add mirror https://x-access-token:${PAT}@github.com/labidrahat/frontend-v1.git
+          git remote add mirror https://x-access-token:${PAT}@@github.com/arifadnan05/Ontonim/finflow.git
 
           # Mirror push (branches + tags + deletes)
           git push --mirror mirror
-
-
-          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
