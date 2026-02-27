@@ -27,7 +27,7 @@ export default function BlogCard({ blog, variant = "default" }: BlogCardProps) {
   if (variant === "hero") {
     return (
       <Link href={`/blog/${blog.slug}`} className="group block">
-        <article className="relative rounded-2xl overflow-hidden bg-slate-900 min-h-[420px] flex flex-col justify-end card-hover">
+        <article className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-slate-900 min-h-[320px] sm:min-h-[420px] flex flex-col justify-end card-hover">
           {blog.featuredImage ? (
             <Image
               src={blog.featuredImage}
@@ -38,22 +38,22 @@ export default function BlogCard({ blog, variant = "default" }: BlogCardProps) {
           ) : (
             <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-900 to-emerald-950" />
           )}
-          <div className="relative p-8 md:p-10">
+          <div className="relative p-5 sm:p-8 md:p-10">
             <span
-              className={`inline-block px-3 py-1 rounded-full text-xs font-semibold mb-4 ${categoryColor}`}
+              className={`inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3 sm:mb-4 ${categoryColor}`}
             >
               {blog.category}
             </span>
             <h2
               style={{ fontFamily: "'Playfair Display', serif" }}
-              className="text-2xl md:text-4xl font-bold text-white leading-tight mb-3 group-hover:text-emerald-300 transition-colors"
+              className="text-xl sm:text-2xl md:text-4xl font-bold text-white leading-tight mb-2 sm:mb-3 group-hover:text-emerald-300 transition-colors"
             >
               {blog.title}
             </h2>
-            <p className="text-slate-300 text-base leading-relaxed mb-5 max-w-2xl line-clamp-2">
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-3 sm:mb-5 max-w-2xl line-clamp-2">
               {blog.excerpt}
             </p>
-            <div className="flex items-center gap-4 text-sm text-slate-400">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-slate-400">
               <span>{blog.sourcePublisher}</span>
               <span>·</span>
               <span className="flex items-center gap-1">
@@ -63,7 +63,7 @@ export default function BlogCard({ blog, variant = "default" }: BlogCardProps) {
               <span>·</span>
               <span>{formatDateShort(blog.createdAt)}</span>
             </div>
-            <div className="mt-5 inline-flex items-center gap-1 text-emerald-400 text-sm font-semibold group-hover:gap-2 transition-all">
+            <div className="mt-4 sm:mt-5 inline-flex items-center gap-1 text-emerald-400 text-sm font-semibold group-hover:gap-2 transition-all">
               Read Article <ArrowRight className="w-4 h-4" />
             </div>
           </div>
