@@ -1,0 +1,22 @@
+name: Mirror to Personal Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout org repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to personal repo
+        run: |
+          git remote add personal https://x-access-token:${{ secrets.PERSONAL_REPO_TOKEN }}@github.com/arifadnan05/Ontonim/finflow.git
+          git push personal --all
+          git push personal --tags
