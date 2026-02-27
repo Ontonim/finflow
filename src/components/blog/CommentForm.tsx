@@ -97,7 +97,7 @@ export default function CommentForm({ blogId }: CommentFormProps) {
             </p>
           )}
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3">
             <button
               type="submit"
               disabled={loading}
